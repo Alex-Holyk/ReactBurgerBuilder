@@ -1,40 +1,47 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import classes from "./BurgerIngredient.module.css";
 
-const BurgerIngredient = props => {
-  let ingredient = null;
+class BurgerIngredient extends React.Component {
+  render() {
+    let ingredient = null;
 
-  switch (props.type) {
-    case "bread-bottom":
-      ingredient = <div className={classes.BreadBottom}>1</div>;
-      break;
-    case "bread-top":
-      ingredient = (
-        <div className={classes.BreadTop}>
-          <div className={classes.Seeds1}>2</div>
-          <div className={classes.Seeds2}>3</div>
-        </div>
-      );
-      break;
-    case "meat":
-      ingredient = <div className={classes.Meat}>4</div>;
-      break;
-    case "cheese":
-      ingredient = <div className={classes.Cheese}>5</div>;
-      break;
-    case "salad":
-      ingredient = <div className={classes.Salad}>6</div>;
-      break;
-    case "bacon":
-      ingredient = <div className={classes.Bacon}>7</div>;
-      break;
-    default:
-      ingredient = null;
-      break;
+    switch (this.props.type) {
+      case "bread-bottom":
+        ingredient = <div className={classes.BreadBottom} />;
+        break;
+      case "bread-top":
+        ingredient = (
+          <div className={classes.BreadTop}>
+            <div className={classes.Seeds1} />
+            <div className={classes.Seeds2} />
+          </div>
+        );
+        break;
+      case "meat":
+        ingredient = <div className={classes.Meat} />;
+        break;
+      case "cheese":
+        ingredient = <div className={classes.Cheese} />;
+        break;
+      case "salad":
+        ingredient = <div className={classes.Salad} />;
+        break;
+      case "bacon":
+        ingredient = <div className={classes.Bacon} />;
+        break;
+      default:
+        ingredient = null;
+        break;
+    }
+
+    return ingredient;
   }
+}
 
-  return ingredient;
+BurgerIngredient.propTypes = {
+  type: PropTypes.string.isRequired
 };
 
 export default BurgerIngredient;
