@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import Button from "../../../components/UI/Button/Button";
 import classes from "./ContactData.module.css";
@@ -6,7 +7,7 @@ import axios from "../../../axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 
-export default class ContactData extends Component {
+class ContactData extends Component {
   state = {
     orderForm: {
       name: {
@@ -45,7 +46,8 @@ export default class ContactData extends Component {
         validation: {
           required: true,
           minLength: 5,
-          maxLength: 5
+          maxLength: 5,
+          isNumeric: true
         },
         valid: false,
         touched: false
@@ -71,7 +73,8 @@ export default class ContactData extends Component {
         },
         value: "",
         validation: {
-          required: true
+          required: true,
+          isEmail: true
         },
         valid: false,
         touched: false
@@ -103,7 +106,7 @@ export default class ContactData extends Component {
       ].value;
     }
     const order = {
-      ingredients: this.props.ingredients,
+      ingredients: this.props.ings,
       price: this.props.price,
       orderData: formData
     };
@@ -133,6 +136,16 @@ export default class ContactData extends Component {
 
     if (rules.maxLength) {
       isValid = value.length <= rules.maxLength && isValid;
+    }
+
+    if (rules.isEmail) {
+      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+      isValid = pattern.test(value) && isValid;
+    }
+
+    if (rules.isNumeric) {
+      const pattern = /^\d+$/;
+      isValid = pattern.test(value) && isValid;
     }
 
     return isValid;
@@ -199,3 +212,12 @@ export default class ContactData extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    ings: state.ingredients,
+    price: state.totalPrice
+  };
+};
+
+export default connect(mapStateToProps)(ContactData);
