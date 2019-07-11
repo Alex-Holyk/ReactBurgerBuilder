@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../store/actions/";
 
 const Logout = props => {
+  //
   const { onLogout } = props;
   useEffect(() => {
     onLogout();
