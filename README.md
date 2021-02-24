@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+:hamburger: Build the burger you want and make an order.
 
 ## Available Scripts
 
